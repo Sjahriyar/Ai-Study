@@ -42,13 +42,14 @@ class NeuralNetwork(nn.Module):
       # In our 28x28 image, we have 784 features
       # 512: The number of neurons (or units) in this layer. Each neuron computes a weighted sum of the inputs and applies a bias.
       # For more information, see the optional reads: "Number of neurons (or units) in the hidden layers" section.
-      # Why using Linear layer? READ: optinal_reads.ipynb#linear-model
+      # Why using Linear layer? READ: optinal_read.ipynb#linear-model
       # The weights are part of the nn.Linear layers in your model. 
       # Each nn.Linear layer creates its own set of weights and biases when it is initialized.
       nn.Linear(28*28, 512),
 
       # ReLU is the activation function. It introduces non-linearity into the model.
-      # The ReLU activation function is applied element-wise to the output of the first layer, setting all negative values to 0.
+      # The ReLU activation function is applied element-wise to the output of the first layer, setting all negative values to 0, and leaving all other values unchanged.
+      # ReLU(x)=max(0,x)
       nn.ReLU(),
 
       # The second fully connected layer accepts the output of the first layer as input, applies a bias, and outputs a 512-dimensional tensor.
@@ -120,3 +121,6 @@ for t in range(epochs):
     test(test_dataloader, model, loss_fn)
 
 print("Done!")
+
+torch.save(model.state_dict(), "fashion.pth")
+print("Saved PyTorch Model State to fashion.pth")
